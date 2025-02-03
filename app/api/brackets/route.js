@@ -226,21 +226,20 @@ function generateDoubleElimination(teams, consolationFinal) {
 
   if (consolationFinal) {
     // selecting the loser from the grand final for the 3rd place match
-    let winnersBracketFinalLoser =
-      + winnersMatches[winnersMatches.length - 2].winner ?
-      winnersMatches[winnersMatches.length - 2].winner === grandFinal.team1
+    let winnersBracketFinalLoser = +winnersMatches[winnersMatches.length - 2]
+      .winner
+      ? winnersMatches[winnersMatches.length - 2].winner === grandFinal.team1
         ? winnersMatches[winnersMatches.length - 2].team2
-        : winnersMatches[winnersMatches.length - 2].team1 
+        : winnersMatches[winnersMatches.length - 2].team1
       : null;
-    
+
     // selecting the looser from the loser bracket for the 3rd place match
-    let loserBracektFinalLoser =
-      + loserMatches[loserMatches.length - 1].winner ?
-      loserMatches[loserMatches.length - 1].winner === grandFinal.team2
+    let loserBracektFinalLoser = +loserMatches[loserMatches.length - 1].winner
+      ? loserMatches[loserMatches.length - 1].winner === grandFinal.team2
         ? loserMatches[loserMatches.length - 1].team1
         : loserMatches[loserMatches.length - 1].team2
       : null;
-    
+
     matches.push({
       round: grandFinal.round + 1,
       team1: winnersBracketFinalLoser,

@@ -7,6 +7,7 @@ export async function GET(request, { params }) {
   try {
     await dbConnect();
     const { id } = await params;
+    console.log("id coming from frontennd is " + id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
         { error: "Invalid tournament ID format" },
