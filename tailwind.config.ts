@@ -67,6 +67,16 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        blue: {
+          DEFAULT: "#007BFF",
+          light: "#6C63FF",
+          dark: "#004085",
+        },
+        violet: {
+          DEFAULT: "#8A2BE2",
+          light: "#9370DB",
+          dark: "#4B0082",
+        },
       },
       fontFamily: {
         mono: ["var(--font-helvetica)", ...fontFamily.mono],

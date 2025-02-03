@@ -40,8 +40,8 @@ const TournamentPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 space-y-8 md:space-y-0">
-          <div className="flex flex-col space-y-4">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          <div className="flex flex-col">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-[#4F46E5] to-[#E114E5] bg-clip-text text-transparent pb-3">
               Gaming Tournaments
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl">

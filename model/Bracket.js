@@ -27,7 +27,7 @@ const bracketSchema = new mongoose.Schema({
   },
   format: {
     type: String,
-    enum: ["single_elimination", "double_elimination"],
+    enum: ["single_elimination", "double_elimination", "round_robin"],
     required: true,
   },
   consolationFinal: {

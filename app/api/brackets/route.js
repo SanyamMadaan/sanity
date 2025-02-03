@@ -251,5 +251,62 @@ function generateDoubleElimination(teams, consolationFinal) {
 
   return matches;
 }
+function generateRoundRobin(teams, consolationFinal) {
+  let matches = [];
+  let numTeams = teams.length;
+  let rounds = numTeams % 2 === 0 ? numTeams - 1 : numTeams; // total rounds decided based on number of teams
+  let standings = {};
 
-function generateRoundRobin(teams) {}
+  // Initialize standings
+  teams.forEach((team) => {
+    standings[team] = {
+      played: 0,
+      wins: 0,
+      draws: 0,
+      losses: 0,
+      points: 0,
+    };
+  });
+
+  let schedule = [...teams]; // to track teams for each round
+
+  if (numTeams % 2 !== 0) {
+    schedule.push(null); // a placeholder to keep a team aside when we have odd teams
+    numTeams++;
+  }
+
+  for (let round = 1; round <= rounds; round++) {
+    let roundMatches = [];
+    for (let i = 0; i < numTeams / 2; i++) {
+      let team1 = schedule[i];
+      let team2 = schedule[numTeams - 1 - i];
+
+      if (team1 !== null && team2 !== null) {
+        // to ignore matches with "BYE" which means null team when we have odd teams
+        roundMatches.push({
+          round: round,
+          team1: team1,
+          team2: team2,
+          winner: null,
+          standings: standings,
+        });
+      }
+    }
+    matches.push(...roundMatches);
+    // remove the last team from the array
+    let lastTeam = schedule.pop();
+    schedule.splice(1, 0, lastTeam); // adding the removed team in the index position 1
+  }
+  // adding the consolation final logic for the 3rd place match
+  if (consolationFinal) {
+    let consolationMatch = {
+      round: rounds + 1,
+      team1: null, // these teams can be added based on the final winners
+      team2: null,
+      type: "consolation_final",
+    };
+    matches.push(consolationMatch);
+  }
+
+  return matches;
+}

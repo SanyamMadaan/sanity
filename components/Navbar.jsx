@@ -19,10 +19,12 @@ import { useSession } from "next-auth/react";
 import UserProfile from "../components/UserProfile";
 import { LogoutButton } from "./LogoutButton";
 import { BiExit } from "react-icons/bi";
+import { HoverBorderGradient } from "../@/components/ui/gradient";
 
-const Navbar = () => {
+const Navbar = ({}) => {
   const session = useSession();
   const [scrolled, setScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,10 +49,9 @@ const Navbar = () => {
   };
 
   return (
-    <div
-      className={`sticky top-0 z-50 py-4 px-5 xl:px-[10%] flex items-center justify-between bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 
-      ${scrolled ? "border-b border-neutral-700" : ""}
-    `}
+    <HoverBorderGradient
+      containerClassName="sticky top-0 z-50 pt-2"
+      className="py-4 px-3 xl:px-[10%] flex flex-auto items-center justify-between mx-10 rounded-full backdrop-blur-md"
     >
       <div className="flex gap-20">
         {/* Logo */}
@@ -73,36 +74,37 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      {/* links */}
-      <nav className="hidden lg:flex flex-row items-center pt-2 gap-6 xl:gap-10 transition-all">
+      {/* Links */}
+      <nav className="hidden lg:flex flex-row items-center p-1.5 gap-6 xl:gap-10 transition-all">
         {navLinks.map((item, index) => (
           <Link
             key={index}
             href={item.href}
-            className={`font-medium hover:text-foreground/90 transition-all
-                ${isActive(pathname, item.href) ? "text-foreground" : "text-foreground/60"}
-              `}
+            className={`font-medium transition-all 
+            ${isActive(pathname, item.href) ? "text-white" : "text-white/60"} 
+            ${hoveredIndex === index ? "bg-gradient-to-r from-[#4F46E5] to-[#E114E5] text-transparent bg-clip-text" : "hover:bg-gradient-to-r hover:from-[#4F46E5] hover:to-[#E114E5] hover:text-transparent hover:bg-clip-text"}`}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
             aria-label={`${item.href}-nav-item`}
           >
             {item.title}
           </Link>
         ))}
       </nav>
-
-      {/* buttons */}
-      <div className="hidden lg:flex lg:items-center pt-2 gap-4 transition-all">
-        {session.status == "authenticated" ? (
+      {/* Buttons */}
+      <div className="hidden lg:flex lg:items-center p-1.5 gap-4 transition-all">
+        {session.status === "authenticated" ? (
           <div className="flex flex-row justify-start space-x-4">
             <NotificationBar />
             <UserProfile />
           </div>
         ) : (
           <Link href="/sign-up" aria-label="join-community">
-            <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6  text-white inline-block">
+            <button className="bg-slate-800 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6 text-white inline-block">
               <span className="absolute inset-0 overflow-hidden rounded-full">
                 <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               </span>
-              <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10 ">
+              <div className="relative flex space-x-2 items-center z-10 rounded-full bg-zinc-950 py-1.5 px-4 ring-1 ring-white/10">
                 <span className="text-sm font-semibold">Sign Up</span>
                 <svg
                   fill="none"
@@ -124,13 +126,11 @@ const Navbar = () => {
             </button>
           </Link>
         )}
-        {/* <ThemeModeToggle /> */}
       </div>
-
-      {/* mobile nav menu */}
+      {/* Mobile Nav Menu */}
       <div className="lg:hidden flex items-center space-x-2">
         <div className="flex flex-row gap-8 items-center transition-all">
-          {session.status == "authenticated" && <NotificationBar />}
+          {session.status === "authenticated" && <NotificationBar />}
           <Sheet>
             <SheetTrigger>
               <AlignJustify aria-label="nav-toggle-mob" className="size-7" />
@@ -154,7 +154,7 @@ const Navbar = () => {
                 </nav>
               </div>
               <SheetFooter className="mt-2 w-full items-center flex justify-center">
-                {session.status == "authenticated" ? (
+                {session.status === "authenticated" ? (
                   <div className="w-full flex items-center justify-center">
                     <LogoutButton>
                       <BiExit className="text-red-400 w-5 h-5 mr-2" />
@@ -169,8 +169,8 @@ const Navbar = () => {
                   >
                     <Button
                       variant="outline"
-                      className="bg-primary hover:bg-primary-hover border border-neutral-700 w-full "
-                      arial-label="join-community-btn"
+                      className="bg-primary hover:bg-primary-hover border border-neutral-700 w-full"
+                      aria-label="join-community-btn"
                     >
                       SignIn
                     </Button>
@@ -180,9 +180,8 @@ const Navbar = () => {
             </SheetContent>
           </Sheet>
         </div>
-        {/* <ThemeModeToggle /> */}
       </div>
-    </div>
+    </HoverBorderGradient>
   );
 };
 

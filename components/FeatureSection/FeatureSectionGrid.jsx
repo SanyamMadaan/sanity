@@ -41,7 +41,7 @@ export default function FeaturesSectionGrid() {
   return (
     <div className="relative z-20 pt-5 pb-5 lg:py-20 max-w-6xl mx-auto text-slate-250">
       <div className="px-8">
-        <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium">
+        <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Unlike any other Esports platform
         </h4>
 

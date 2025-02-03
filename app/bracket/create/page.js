@@ -30,7 +30,7 @@ const Bracket = dynamic(() => import("../bracket"), { ssr: false }); // to avoid
 
 const bracketSchema = z.object({
   tournament_name: z.string().min(1),
-  format: z.enum(["single_elimination", "double_elimination"]),
+  format: z.enum(["single_elimination", "double_elimination", "round_robin"]),
   consolationFinal: z.boolean().default(false),
   grandFinalType: z.enum(["simple", "double"]),
 });
@@ -64,9 +64,9 @@ export default function Page() {
     resolver: zodResolver(bracketSchema),
     defaultValues: {
       tournament_name: "",
-      format: "single_elimination",
+      format: "",
       consolationFinal: false,
-      grandFinalType: "simple",
+      grandFinalType: "",
     },
   });
 
